@@ -5,9 +5,18 @@ $(function(){
     var chat = $('#chat');
 
     sendBtn.click(function(){
-        socket.emit('new_msg',msg.val()); // event emitted to server
+        socket.emit('new_msg',{
+            username: username,
+            msg: msg.val()
+        }); // event emitted to server
     })
     socket.on('msg',function(data){
-        chat.append("<li>"+data+"</li>");
+        chat.append("<li>"+data.username+": "+data.msg+"</li>");
     })
+
+    username = prompt("Your name please?");
+    socket.emit('store_user',{
+        user: username
+    })
+
 })

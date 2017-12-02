@@ -7,7 +7,7 @@ const socketio = require('socket.io');
 const io = socketio(server);
 // pass the server on which you need to create socket, socket.io.js client side library is available on server just after this line of code
 const path = require('path');
-
+let users = {};
 
 // request events are there similar to user events in js
 io.on('connection',function(mysocket){
@@ -21,6 +21,10 @@ io.on('connection',function(mysocket){
         // mysocket.emit('msg',data); // it is the same socket through which this event started
         io.emit('msg',data); // to emit to all the clients
     });
+
+    mysocket.on('store_user',function(data){
+        users[mysocket.id] = data.user; // automatically socket generates an id 
+    })
 
 
 })
