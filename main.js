@@ -20,6 +20,7 @@ file.readFile('name.txt',function(err,data){
 
 const express = require('express');
 const app = express(); // one server, need apps to run express
+const path = require('path'); //get the path 
 
 app.get('/',function(req,res){ //async calls
     console.log(req.query); // anything after /? , eg. /?name="sahil"
@@ -32,6 +33,8 @@ app.get('/sahil',function(req,res){ //async calls
 })
 
 //app.use() - middleware concept
+app.use('/',express.static(path.join(__dirname,'/public_static'))); //dirname returns the path till now
+//all files in this path,i.e. public_static folder can be requested by client
 
 app.listen(9090,function(){
     console.log("server has started");
