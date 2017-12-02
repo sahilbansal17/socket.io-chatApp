@@ -14,6 +14,14 @@ io.on('connection',function(mysocket){
     // a client has to do atleast one request to start the socket!!
     console.log('a new connection has been created!');
     // at each connection (different clients request) a new mysocket will be created
+    // for each tab of same url a new connection will remain created
+
+    mysocket.on('new_msg',function(data){
+        console.log(data);
+        // mysocket.emit('msg',data); // it is the same socket through which this event started
+        io.emit('msg',data); // to emit to all the clients
+    });
+
 
 })
 
